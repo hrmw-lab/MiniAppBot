@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>VAPE K43 | Заказ</title>
     <style>
-        /* ========== CSS ========== */
         * {
             margin: 0;
             padding: 0;
@@ -29,10 +28,11 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
+        /* Шапка */
         .header {
             background: var(--white);
             border-radius: 32px;
@@ -61,45 +61,121 @@
             color: #6c6f78;
         }
 
-        .social-links {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+        .admin-toggle {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 10px 24px;
             border-radius: 40px;
-            text-decoration: none;
             font-weight: 600;
-            font-size: 14px;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .social-btn.vk {
-            background: #2787f5;
+        .admin-toggle:hover {
+            background: var(--purple-dark);
+        }
+
+        /* Модалка ввода пароля */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid var(--purple);
+        }
+
+        .modal-content h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid var(--gray-border);
+            border-radius: 28px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+
+        .modal-btn {
+            background: var(--purple);
             color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
         }
 
-        .social-btn.tg {
-            background: var(--black);
+        .modal-error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Переключение режимов */
+        .mode-buttons {
+            display: flex;
+            gap: 12px;
+            background: var(--gray-bg);
+            padding: 6px;
+            border-radius: 60px;
+            margin-bottom: 32px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            color: var(--black);
+            transition: 0.2s;
+        }
+
+        .mode-btn.active {
+            background: var(--purple);
             color: white;
-            border: 1px solid var(--purple);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
-        .social-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(0.95);
-        }
-
+        /* ===== ПОЛЬЗОВАТЕЛЬСКАЯ ЧАСТЬ ===== */
         .order-card {
             background: var(--white);
             border-radius: 32px;
             padding: 32px;
             border: 1px solid var(--gray-border);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .order-title {
@@ -173,7 +249,6 @@
         .submit-btn:hover {
             background: var(--purple-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
         }
 
         .status {
@@ -197,6 +272,101 @@
             display: block;
         }
 
+        /* ===== АДМИН-ПАНЕЛЬ ===== */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .admin-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-badge {
+            background: var(--purple);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .orders-table {
+            background: var(--white);
+            border-radius: 28px;
+            border: 1px solid var(--gray-border);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        th {
+            background: var(--gray-bg);
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .action-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .action-btn.delete {
+            background: #dc2626;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 48px;
+            color: #8b8f9c;
+        }
+
         footer {
             text-align: center;
             margin-top: 48px;
@@ -206,12 +376,13 @@
             font-size: 12px;
         }
 
-        @media (max-width: 550px) {
+        @media (max-width: 700px) {
             .order-card {
                 padding: 24px;
             }
-            .order-title {
-                font-size: 24px;
+            th, td {
+                padding: 10px;
+                font-size: 12px;
             }
         }
     </style>
@@ -224,101 +395,210 @@
             <h1>VAPE K43</h1>
             <p>Доставка по Кирову и Кирово-Чепецку!</p>
         </div>
-        <div class="social-links">
+        <button class="admin-toggle" id="adminToggleBtn">👑 Админ-панель</button>
+    </div>
+
+    <!-- Переключатель режимов -->
+    <div class="mode-buttons" id="modeButtons">
+        <button class="mode-btn active" data-mode="user">📝 Оформить заказ</button>
+        <button class="mode-btn" data-mode="admin">📊 Заказы (админ)</button>
+    </div>
+
+    <!-- ПОЛЬЗОВАТЕЛЬСКАЯ ЧАСТЬ -->
+    <div id="userSection">
+        <div class="order-card">
+            <div class="order-title">📦 Оформление заказа</div>
+            <div class="order-sub">Напишите, что вам нужно доставить — мы привезём</div>
+
+            <div class="form-group">
+                <label>🛒 Что доставить? <span class="required">*</span></label>
+                <input type="text" id="productName" placeholder="Пример: XROS 4 Nano, жидкость Манго, испарители...">
+            </div>
+
+            <div class="form-group">
+                <label>📍 Куда доставить? <span class="required">*</span></label>
+                <input type="text" id="address" placeholder="Город, улица, дом, квартира">
+            </div>
+
+            <div class="form-group">
+                <label>📞 Телефон или TG/VK <span class="required">*</span></label>
+                <input type="tel" id="phone" placeholder="+7 XXX XXX-XX-XX | @telegramUser | @VKUser">
+            </div>
+
+            <div class="form-group">
+                <label>📝 Комментарий</label>
+                <textarea id="comment" placeholder="Время доставки, домофон, пожелания..."></textarea>
+            </div>
+
+            <button class="submit-btn" id="sendOrderBtn">✅ Отправить заказ</button>
+            <div id="statusMessage" class="status"></div>
         </div>
     </div>
 
-    <div class="order-card">
-        <div class="order-title">📦 Оформление заказа</div>
-        <div class="order-sub">Напишите, что вам нужно доставить — мы привезём</div>
-
-        <div class="form-group">
-            <label>🛒 Что доставить? <span class="required">*</span></label>
-            <input type="text" id="productName" placeholder="Пример: XROS 4 Nano, жидкость Манго, испарители 0.2 Ом...">
+    <!-- АДМИН-ПАНЕЛЬ -->
+    <div id="adminSection" class="admin-panel">
+        <div class="admin-header">
+            <div class="admin-title">📋 Управление заказами</div>
+            <div class="stats">
+                <div class="stat-badge" id="totalOrdersCount">Всего: 0</div>
+                <div class="stat-badge" id="newOrdersCount">Новых: 0</div>
+                <button class="logout-btn" id="logoutBtn">🚪 Выйти</button>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>📍 Куда доставить? <span class="required">*</span></label>
-            <input type="text" id="address" placeholder="Город, улица, дом, квартира">
+        <div class="orders-table">
+            <div id="ordersList"></div>
         </div>
-
-        <div class="form-group">
-            <label>📞 Телефон <span class="required">*</span></label>
-            <input type="tel" id="phone" placeholder="+7 XXX XXX-XX-XX">
-        </div>
-
-        <div class="form-group">
-            <label>📝 Комментарий</label>
-            <textarea id="comment" placeholder="Время доставки, домофон, пожелания..."></textarea>
-        </div>
-
-        <button class="submit-btn" id="sendOrderBtn">✅ Отправить заказ</button>
-        <div id="statusMessage" class="status"></div>
     </div>
 
-    <footer>🔥 18+ · Оплата при получении · Работаем ежедневно</footer>
+    <footer>🔥 18+ · Оплата при получении · Все заказы сохраняются</footer>
+</div>
+
+<!-- МОДАЛКА ВВОДА ПАРОЛЯ -->
+<div id="passwordModal" class="modal">
+    <div class="modal-content">
+        <h3>🔐 Вход в админ-панель</h3>
+        <input type="password" id="passwordInput" placeholder="Введите пароль">
+        <button class="modal-btn" id="submitPasswordBtn">Войти</button>
+        <div id="passwordError" class="modal-error">❌ Неверный пароль</div>
+    </div>
 </div>
 
 <script>
-    // ========== ВАШИ ДАННЫЕ ==========
-    const BOT_TOKEN = "8921574198:AAFhu5TVH_z85JH7AoVkMkVrK9rHm9VQ68I";
-    const ADMIN_CHAT_ID = "-1003970840872";
-
-    // ========== ОТПРАВКА ЧЕРЕЗ СКРЫТЫЙ IFRAME (ОБХОД CORS) ==========
-    function sendViaIframe(message) {
-        return new Promise((resolve) => {
-            const encodedMessage = encodeURIComponent(message);
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_CHAT_ID}&text=${encodedMessage}&parse_mode=HTML`;
-            
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = url;
-            document.body.appendChild(iframe);
-            
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-                resolve(true);
-            }, 800);
-        });
+    // ========== НАСТРОЙКИ ==========
+    // ⚠️ ИЗМЕНИТЕ ПАРОЛЬ ЗДЕСЬ:
+    const ADMIN_PASSWORD = "Vap3K43$030";
+    
+    // Состояние авторизации
+    let isAdminAuthorized = false;
+    
+    // Хранение заказов
+    let orders = JSON.parse(localStorage.getItem('vape_orders')) || [];
+    
+    // Текущий режим
+    let currentMode = 'user';
+    
+    // ========== ФУНКЦИИ РАБОТЫ С ЗАКАЗАМИ ==========
+    function saveOrders() {
+        localStorage.setItem('vape_orders', JSON.stringify(orders));
     }
-
-    // ========== ОСНОВНАЯ ФУНКЦИЯ ОТПРАВКИ ==========
-    async function sendOrderToOwner(orderData) {
-        const message = `🛒 <b>НОВЫЙ ЗАКАЗ (ВЕЙП-ШОП)</b>\n\n` +
-                        `📦 <b>Что доставить:</b>\n${orderData.product}\n\n` +
-                        `📍 <b>Куда доставить:</b> ${orderData.address}\n` +
-                        `📞 <b>Телефон:</b> ${orderData.phone}\n` +
-                        `📝 <b>Комментарий:</b> ${orderData.comment || '—'}\n\n` +
-                        `⏰ <b>Время:</b> ${new Date().toLocaleString()}`;
-
-        try {
-            // Пытаемся через fetch (если CORS пропускает)
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: ADMIN_CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            });
-            const data = await response.json();
-            if (data.ok) return true;
-        } catch (fetchError) {
-            console.log("Fetch не сработал (CORS), пробуем iframe...");
+    
+    function addOrder(orderData) {
+        const newOrder = {
+            id: Date.now(),
+            ...orderData,
+            status: 'new',
+            date: new Date().toLocaleString(),
+            ip: "Локальный"
+        };
+        orders.unshift(newOrder);
+        saveOrders();
+        if (isAdminAuthorized) renderAdminOrders();
+        updateStats();
+        return newOrder;
+    }
+    
+    function updateOrderStatus(orderId, newStatus) {
+        const order = orders.find(o => o.id === orderId);
+        if (order) {
+            order.status = newStatus;
+            saveOrders();
+            if (isAdminAuthorized) renderAdminOrders();
+            updateStats();
         }
-
-        // Если fetch не сработал — используем iframe
-        return await sendViaIframe(message);
     }
-
-    // ========== ОБРАБОТКА ФОРМЫ ==========
+    
+    function deleteOrder(orderId) {
+        orders = orders.filter(o => o.id !== orderId);
+        saveOrders();
+        if (isAdminAuthorized) renderAdminOrders();
+        updateStats();
+    }
+    
+    function updateStats() {
+        const total = orders.length;
+        const newCount = orders.filter(o => o.status === 'new').length;
+        const totalSpan = document.getElementById('totalOrdersCount');
+        const newSpan = document.getElementById('newOrdersCount');
+        if (totalSpan) totalSpan.innerText = `Всего: ${total}`;
+        if (newSpan) newSpan.innerText = `Новых: ${newCount}`;
+    }
+    
+    // ========== ОТОБРАЖЕНИЕ АДМИН-ПАНЕЛИ ==========
+    function renderAdminOrders() {
+        const container = document.getElementById('ordersList');
+        if (!container) return;
+        
+        if (orders.length === 0) {
+            container.innerHTML = '<div class="empty-orders">📭 Пока нет заказов</div>';
+            return;
+        }
+        
+        const statusClass = {
+            'new': 'status-new',
+            'processing': 'status-processing',
+            'completed': 'status-completed'
+        };
+        
+        let html = `
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Дата</th><th>Что доставить</th><th>Адрес</th><th>Телефон</th><th>Статус</th><th>Действия</th></tr>
+                </thead>
+                <tbody>
+        `;
+        
+        orders.forEach(order => {
+            html += `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.date}</td>
+                    <td><strong>${escapeHtml(order.product)}</strong></td>
+                    <td>${escapeHtml(order.address)}</td>
+                    <td>${escapeHtml(order.phone)}</td>
+                    <td>
+                        <select class="status-badge ${statusClass[order.status]}" data-id="${order.id}" onchange="changeStatus(${order.id}, this.value)" style="padding:6px 12px; border-radius:20px; border:none; font-weight:600;">
+                            <option value="new" ${order.status === 'new' ? 'selected' : ''}>🟡 Новый</option>
+                            <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>🟠 В обработке</option>
+                            <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>✅ Выполнен</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-btn" onclick="viewOrder(${order.id})">👁️</button>
+                        <button class="action-btn delete" onclick="deleteOrder(${order.id})">🗑️</button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+    }
+    
+    // Глобальные функции для onclick
+    window.changeStatus = function(orderId, newStatus) {
+        updateOrderStatus(orderId, newStatus);
+    };
+    
+    window.deleteOrder = function(orderId) {
+        if (confirm('Удалить заказ?')) {
+            deleteOrder(orderId);
+        }
+    };
+    
+    window.viewOrder = function(orderId) {
+        const order = orders.find(o => o.id === orderId);
+        if (order) {
+            alert(`📦 ЗАКАЗ #${orderId}\n\nЧто доставить: ${order.product}\nАдрес: ${order.address}\nТелефон: ${order.phone}\nКомментарий: ${order.comment || '—'}\nСтатус: ${order.status}\nДата: ${order.date}`);
+        }
+    };
+    
+    // ========== ПОЛЬЗОВАТЕЛЬСКАЯ ЧАСТЬ ==========
     async function submitOrder() {
         const product = document.getElementById('productName').value.trim();
         const address = document.getElementById('address').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const comment = document.getElementById('comment').value.trim();
-
+        
         if (!product) {
             showStatus('❌ Напишите, что нужно доставить', 'error');
             return;
@@ -331,27 +611,16 @@
             showStatus('❌ Укажите номер телефона', 'error');
             return;
         }
-
-        showStatus('⏳ Отправка заказа...', 'info');
-
-        const success = await sendOrderToOwner({
-            product: product,
-            address: address,
-            phone: phone,
-            comment: comment
-        });
-
-        if (success) {
-            showStatus('✅ Заказ отправлен! Владелец свяжется с вами.', 'success');
-            document.getElementById('productName').value = '';
-            document.getElementById('address').value = '';
-            document.getElementById('phone').value = '';
-            document.getElementById('comment').value = '';
-        } else {
-            showStatus('❌ Ошибка отправки. Попробуйте позже или свяжитесь через VK/Telegram', 'error');
-        }
+        
+        addOrder({ product, address, phone, comment });
+        showStatus('✅ Заказ успешно оформлен! Администратор свяжется с вами.', 'success');
+        
+        document.getElementById('productName').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('comment').value = '';
     }
-
+    
     function showStatus(msg, type) {
         const statusDiv = document.getElementById('statusMessage');
         statusDiv.textContent = msg;
@@ -359,13 +628,133 @@
         if (type === 'success') statusDiv.classList.add('success');
         if (type === 'error') statusDiv.classList.add('error');
         statusDiv.style.display = 'block';
-
         setTimeout(() => {
             statusDiv.style.display = 'none';
-        }, 5000);
+        }, 4000);
     }
-
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // ========== УПРАВЛЕНИЕ РЕЖИМАМИ И ПАРОЛЕМ ==========
+    function setMode(mode) {
+        currentMode = mode;
+        const userSection = document.getElementById('userSection');
+        const adminSection = document.getElementById('adminSection');
+        const modeButtons = document.querySelectorAll('.mode-btn');
+        
+        if (mode === 'user') {
+            userSection.style.display = 'block';
+            adminSection.style.display = 'none';
+        } else {
+            // Проверяем авторизацию
+            if (!isAdminAuthorized) {
+                showPasswordModal();
+                return;
+            }
+            userSection.style.display = 'none';
+            adminSection.style.display = 'block';
+            renderAdminOrders();
+            updateStats();
+        }
+        
+        modeButtons.forEach(btn => {
+            if (btn.getAttribute('data-mode') === mode) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    // Модалка пароля
+    function showPasswordModal() {
+        const modal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorDiv = document.getElementById('passwordError');
+        passwordInput.value = '';
+        errorDiv.style.display = 'none';
+        modal.style.display = 'flex';
+        
+        // Обработчик на кнопку
+        const submitBtn = document.getElementById('submitPasswordBtn');
+        const handleSubmit = () => {
+            const enteredPassword = passwordInput.value;
+            if (enteredPassword === ADMIN_PASSWORD) {
+                isAdminAuthorized = true;
+                modal.style.display = 'none';
+                // Переключаем кнопку в шапке
+                document.getElementById('adminToggleBtn').textContent = '👑 Админ-панель (активна)';
+                document.getElementById('modeButtons').style.display = 'flex';
+                // Устанавливаем режим админа
+                setMode('admin');
+                // Удаляем обработчики, чтобы не дублировать
+                submitBtn.removeEventListener('click', handleSubmit);
+                passwordInput.removeEventListener('keypress', keyHandler);
+            } else {
+                errorDiv.style.display = 'block';
+            }
+        };
+        
+        const keyHandler = (e) => {
+            if (e.key === 'Enter') {
+                handleSubmit();
+            }
+        };
+        
+        submitBtn.removeEventListener('click', handleSubmit);
+        passwordInput.removeEventListener('keypress', keyHandler);
+        submitBtn.addEventListener('click', handleSubmit);
+        passwordInput.addEventListener('keypress', keyHandler);
+    }
+    
+    function logout() {
+        isAdminAuthorized = false;
+        document.getElementById('adminToggleBtn').textContent = '👑 Админ-панель';
+        setMode('user');
+    }
+    
+    // ========== НАВИГАЦИЯ ==========
+    let isAdminModeFromToggle = false;
+    document.getElementById('adminToggleBtn').addEventListener('click', () => {
+        if (isAdminAuthorized) {
+            // Если уже авторизован — переключаем режим
+            if (currentMode === 'user') {
+                setMode('admin');
+                document.getElementById('adminToggleBtn').textContent = '👑 Админ-панель (активна)';
+                document.getElementById('modeButtons').style.display = 'flex';
+            } else {
+                setMode('user');
+                document.getElementById('adminToggleBtn').textContent = '👑 Админ-панель';
+                document.getElementById('modeButtons').style.display = 'flex';
+            }
+        } else {
+            // Показать модалку пароля
+            showPasswordModal();
+        }
+    });
+    
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+        logout();
+    });
+    
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setMode(btn.getAttribute('data-mode'));
+        });
+    });
+    
+    // Инициализация
     document.getElementById('sendOrderBtn').addEventListener('click', submitOrder);
+    setMode('user');
+    updateStats();
 </script>
 </body>
 </html>
