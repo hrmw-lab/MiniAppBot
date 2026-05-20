@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>VAPE K43 | Заказ</title>
+    <style>
+        /* ========== CSS ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 24px 20px 60px;
+        }
+
+        :root {
+            --white: #ffffff;
+            --black: #0a0a0a;
+            --purple: #7c3aed;
+            --purple-dark: #5b21b6;
+            --purple-light: #a855f7;
+            --gray-bg: #f0f0f5;
+            --gray-border: #e2e2e8;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Шапка */
+        .header {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--gray-border);
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--black), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #6c6f78;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .social-btn.vk {
+            background: #2787f5;
+            color: white;
+        }
+
+        .social-btn.tg {
+            background: var(--black);
+            color: white;
+            border: 1px solid var(--purple);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        /* Карточка заказа */
+        .order-card {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 32px;
+            border: 1px solid var(--gray-border);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .order-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        .order-sub {
+            color: #6c6f78;
+            margin-bottom: 28px;
+            font-size: 14px;
+            border-left: 3px solid var(--purple);
+            padding-left: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--black);
+            font-size: 14px;
+        }
+
+        .required {
+            color: var(--purple);
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--white);
+            border: 1.5px solid var(--gray-border);
+            border-radius: 28px;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .submit-btn {
+            background: var(--purple);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+        }
+
+        .submit-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .status {
+            margin-top: 24px;
+            padding: 14px;
+            border-radius: 28px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-border);
+            color: #8b8f9c;
+            font-size: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .order-card {
+                padding: 24px;
+            }
+            .order-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Шапка с соцсетями -->
+    <div class="header">
+        <div class="logo">
+            <h1>VAPE K43</h1>
+            <p>Доставка по Кирову и Кирово-Чепецку!</p>
+        </div>
+        <div class="social-links">
+            <a href="" target="_blank" class="social-btn vk">📱 ВКонтакте (Скоро)</a>
+            <a href="https://t.me/vapek43" target="_blank" class="social-btn tg">✈️ Telegram</a>
+        </div>
+    </div>
+
+    <!-- Форма заказа: пользователь сам пишет, что доставить -->
+    <div class="order-card">
+        <div class="order-title">📦 Оформление заказа</div>
+        <div class="order-sub">Напишите, что вам нужно доставить — мы привезём</div>
+
+        <!-- ПОЛЕ: ЧТО ДОСТАВИТЬ (пользователь пишет сам) -->
+        <div class="form-group">
+            <label>🛒 Что доставить? <span class="required">*</span></label>
+            <input type="text" id="productName" placeholder="Пример: XROS 4 Nano, жидкость Манго, испарители 0.2 Ом...">
+        </div>
+
+        <div class="form-group">
+            <label>📍 Куда доставить? <span class="required">*</span></label>
+            <input type="text" id="address" placeholder="Город, улица, дом, квартира">
+        </div>
+
+        <div class="form-group">
+            <label>📞 Телефон или Telegram <span class="required">*</span></label>
+            <input type="tel" id="phone" placeholder="+7 XXX XXX-XX-XX">
+        </div>
+
+        <div class="form-group">
+            <label>📝 Комментарий</label>
+            <textarea id="comment" placeholder="Время доставки, домофон, пожелания..."></textarea>
+        </div>
+
+        <button class="submit-btn" id="sendOrderBtn">✅ Отправить заказ</button>
+        <div id="statusMessage" class="status"></div>
+    </div>
+
+    <footer>🔥 18+ · Оплата при получении · Работаем ежедневно</footer>
+</div>
+
+<script>
+    // ========== JS: Отправка заказа владельцу ==========
+    
+    // Telegram-уведомления (ЗАМЕНИТЕ НА СВОИ ДАННЫЕ)
+    const BOT_TOKEN = "8921574198:AAFhu5TVH_z85JH7AoVkMkVrK9rHm9VQ68I";
+    const ADMIN_CHAT_ID = "-1003970840872";
+
+    async function sendOrderToOwner(orderData) {
+        const message = `🛒 <b>НОВЫЙ ЗАКАЗ (ВЕЙП-ШОП)</b>\n\n` +
+                        `📦 <b>Что доставить:</b>\n${orderData.product}\n\n` +
+                        `📍 <b>Куда доставить:</b> ${orderData.address}\n` +
+                        `📞 <b>Телефон/Телеграм:</b> ${orderData.phone}\n` +
+                        `📝 <b>Комментарий:</b> ${orderData.comment || '—'}\n\n` +
+                        `⏰ <b>Время:</b> ${new Date().toLocaleString()}`;
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+            const data = await response.json();
+            return data.ok;
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            return false;
+        }
+    }
+
+    async function submitOrder() {
+        const product = document.getElementById('productName').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const comment = document.getElementById('comment').value.trim();
+
+        if (!product) {
+            showStatus('❌ Напишите, что нужно доставить', 'error');
+            return;
+        }
+        if (!address) {
+            showStatus('❌ Укажите адрес доставки', 'error');
+            return;
+        }
+        if (!phone) {
+            showStatus('❌ Укажите номер телефона', 'error');
+            return;
+        }
+
+        showStatus('⏳ Отправка заказа...', 'info');
+
+        const success = await sendOrderToOwner({
+            product: product,
+            address: address,
+            phone: phone,
+            comment: comment
+        });
+
+        if (success) {
+            showStatus('✅ Заказ отправлен! Владелец свяжется с вами.', 'success');
+            // Очищаем форму
+            document.getElementById('productName').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('comment').value = '';
+        } else {
+            showStatus('❌ Ошибка отправки. Попробуйте позже или свяжитесь через VK/Telegram', 'error');
+        }
+    }
+
+    function showStatus(msg, type) {
+        const statusDiv = document.getElementById('statusMessage');
+        statusDiv.textContent = msg;
+        statusDiv.className = 'status';
+        if (type === 'success') statusDiv.classList.add('success');
+        if (type === 'error') statusDiv.classList.add('error');
+        statusDiv.style.display = 'block';
+
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // Кнопка отправки
+    document.getElementById('sendOrderBtn').addEventListener('click', submitOrder);
+</script>
+</body>
+</html>
